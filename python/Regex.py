@@ -57,7 +57,7 @@ phno_regex = '[+]?[1\s-]*[\(-]?[0-9]{3}[-\)]?[\s-]?[0-9]{3}[\s-]?[0-9]{4}(?=\s)'
 url_regex = 'http[s]?://(?:[a-zA-Z0-9$-_@.&+!*\(\),]|(?:%[0-9a-zA-Z]))+(?=\s)'
 
 # US Zip code regular expression
-uszip_regex = '\s?[0-9]{5}[-][0-9]{4}$'
+uszip_regex = '\s?[0-9]{5}(?:-[0-9]{4})?$'
 
 # Date format: dd/mm/yyyy regular expression
 date_regex1 = '\s?(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:/)(?:0?[1-9]|1[0-2])(?:/)(?:\d{4})'
@@ -170,6 +170,5 @@ for i in range(2, count):
 
 	if '-d' in sys.argv[i]:
 		print("\n Recognized date formats (dd/mm/yyyy, mm/dd/yyyy, 1st,mon/month yyyy, mon/month 1, yyyy) in the input file are:\n", date_res)
-
 
 
