@@ -4,6 +4,9 @@ Regular Expressions are used to find out a sequence of characters that define a 
 
 The python script `Regex.py` contains the regular expression validations which when applied to the given input file will extract the valid patterns.
 
+###### Disclaimer: The python script extracts all the possible words (in the input file) that match the regular expression pattern. It does not validate the extracted word. So, there can be instances where the same word could be matched against multiple regular expression patterns. 
+
+
 ## Usage <br>
 Run the python script by passing in the command line input arguments as below: <br><br>
 Regex.py _input_file_name_ _[arguments]_ <br>
@@ -16,11 +19,15 @@ _[arguments]_ - specify one or more of the following arguments <br>
 `-p` extracts all the US phone number occurrences <br>
 `-k` extracts all the UK postal code occurrences <br>
 `-d` extracts all the date occurrences <br>
+`-z` extracts all the US zipcode occurrences <br>
 
 
 ## Supported formats
 
 Here are the various formats supported for different types.
+
+> Note: The regular expressions used in the python script have a trailing space at the end when compared with the expressions provided here in the readme. The trailing space in the expression(s) is needed for python script so as to extract the words from a sentence. Also, for US Zipcode, additionally the dollar($) symbol is needed for the python script to extract the words from a sentence.
+
 ### Email 
 _Regular Expression:_ <br>
 ```[a-zA-Z0-9][a-zA-Z0-9!#$%&\'*+/=.?^_`{|}~-]*@(?:[a-zA-Z](?:[a-zA-Z0-9-]*)?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z])?```
@@ -42,7 +49,7 @@ Ref: https://en.wikipedia.org/wiki/Email_address
 
 ### URL
 Regular Expression: <br>
-```http[s]?://(?:[a-zA-Z0-9$-_@.&+!*\(\),]|(?:%[0-9a-zA-Z]))+(?=\s)```
+```http[s]?://(?:[a-zA-Z0-9$-_@.&+!*\(\),]|(?:%[0-9a-zA-Z]))+```
 
 A typical URL could have the form `http://www.example.com/index.html`, which indicates a protocol (`http`), a hostname (`www.example.com`), and a file name (`index.html`). The regular expression is intended to match URL that starts with either `http` or `https`. <br>
 Ref: https://en.wikipedia.org/wiki/URL
@@ -50,7 +57,7 @@ Ref: https://en.wikipedia.org/wiki/URL
 
 ### US Phone Numbers
 Regular Expression: <br>
-```[+]?[1\s-]*[\(-]?[0-9]{3}[-\)]?[\s-]?[0-9]{3}[\s-]?[0-9]{4}(?=\s)```
+```[+]?[1\s-]*[\(-]?[0-9]{3}[-\)]?[\s-]?[0-9]{3}[\s-]?[0-9]{4}```
 
 The regular expression recognises the US phone number formats in the below patterns:  
 - (###) ###-####
@@ -62,7 +69,7 @@ Ref: https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_nu
 
 ### Currency
 Regular Expression: <br>
-```(?:\$|can\$|C\$|€|USD|CAD|EUR|ATS|BEF|DEM|EEK|ESP|FIM|FRF|GRD|IEP|ITL|LUF|NLG|PTE|can)[\s\S]?\d{1,3}(?:,\d{3})*(?:\.\d{1,3})?(?=\s)```
+```(?:\$|can\$|C\$|€|USD|CAD|EUR|ATS|BEF|DEM|EEK|ESP|FIM|FRF|GRD|IEP|ITL|LUF|NLG|PTE|can)[\s\S]?\d{1,3}(?:,\d{3})*(?:\.\d{1,3})?```
 
 The regular expression validates only US Dollar (USD), Euro (EUR) and Canadian Dollar (CAD) currency formats as below: 
 Considered the following currency symbols 
@@ -91,7 +98,7 @@ Ref: https://en.wikipedia.org/wiki/Postcodes_in_the_United_Kingdom
 
 ### US Zipcode
 Regular Expression: <br>
-```\s?[0-9]{5}[-][0-9]{4}$``` <br>
+```[0-9]{5}(-[0-9]{4})?``` <br>
 
 The regular expression matches US Zipcode that includes nine digits in the format  `ddddd-dddd`
 Ref: https://en.wikipedia.org/wiki/List_of_postal_codes
@@ -105,7 +112,8 @@ dd/mm/yyyy - ```\s?(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:/)(?:0?[1-9]|1[0-2])(?:/)(?:\
 
 mm/dd/yyyy - ```\s?(?:0?[1-9]|1[0-2])(?:/)(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:/)(?:\d{4})```
 
-1st mon/month yyyy - ```\s?(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:nd|rd|th|st)?(?:[\s|,|]?\s?)(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]une|[Jj]uly|[Aa]ug(?:ust)?|[Ss]ept(?:ember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)\s\d{4}'date_regex3 = '\s?(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:nd|rd|th|st)?(?:[\s|,|]?\s?)(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]une|[Jj]uly|[Aa]ug(?:ust)?|[Ss]ept(?:ember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)\s\d{4}```
+1st mon/month yyyy - ```\s?(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:nd|rd|th|st)?(?:[\s|,|]?\s?)(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]une|[Jj]uly|[Aa]ug(?:ust)?|[Ss]ept(?:ember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)\s\d{4}```
 
 mon/month, 1, yyyy - ```\s?(?:[Jj]an(?:uary)?|[Ff]eb(?:ruary)?|[Mm]ar(?:ch)?|[Aa]pr(?:il)?|[Mm]ay|[Jj]une|[Jj]uly|[Aa]ug(?:ust)?|[Ss]ept(?:ember)?|[Oo]ct(?:ober)?|[Nn]ov(?:ember)?|[Dd]ec(?:ember)?)(?:[\s|,]?\s?)(?:0?[1-9]|[1,2][0-9]|3[0-1])(?:[\s|,]?\s?)\s\d{4}```
 
+> Note - The above specified date format Regular Expression patterns works individually and also can be merged with pipe symbol to make it as single Regular Expression for ease of use.
